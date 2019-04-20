@@ -35,11 +35,6 @@ void GetAllFiles(std::string sPath, std::vector<std::string>& vListOfPath)
 		}
 		closedir (dir);
     }
-
-	for(int i = 0; i < vListOfPath.size(); i++)
-		std::cout<< vListOfPath.at(i) << std::endl;
-	
-	std::cout << "------------------------------------"<< std::endl;
 }
 
 bool SyncFiles(std::string sOrigPath, std::string sCopyPath)
@@ -64,8 +59,6 @@ bool SyncFiles(std::string sOrigPath, std::string sCopyPath)
 			}
 		}
 
-		std::cout << "Found Loc:" << iFoundLocation << std::endl;
-
 		if(bFound && IsDirectory(sOrigPath + "/" + vOrginRecPaths.at(i)))
 			SyncFiles (sOrigPath + "/" + vOrginRecPaths.at(i), sCopyPath+ "/" + vCopyRecPaths.at(iFoundLocation));
 		else if(bFound)
@@ -74,11 +67,16 @@ bool SyncFiles(std::string sOrigPath, std::string sCopyPath)
 		{
 			try
 			{	
+				std::cout << "............................................ " << std::endl;
+				std::cout << "............................................ " << std::endl;
+				std::cout << "............................................ " << std::endl;
+				std::cout << "............................................ " << std::endl;
 				std::cout << "Copying... " <<vOrginRecPaths.at(i) << std::endl;
 				if(IsDirectory(sOrigPath + "/" + vOrginRecPaths.at(i)))
 					fs::copy(sOrigPath + "/" + vOrginRecPaths.at(i), sCopyPath + "/" + vOrginRecPaths.at(i), fs::copy_options::recursive);
 				else	
 					fs::copy(sOrigPath + "/" + vOrginRecPaths.at(i), sCopyPath);
+					
 			}
 			catch(const std::exception& e)
 			{
@@ -88,7 +86,7 @@ bool SyncFiles(std::string sOrigPath, std::string sCopyPath)
 		}
 		
 	}
-    return false;
+    return true;
 }
 
 
